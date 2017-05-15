@@ -29,16 +29,15 @@ public class JMSService {
         this.jmsTestConsumer = jmsTestConsumer;
     }
 
-    @PostConstruct
-    public void registerConsumer() {
-        LOG.debug("registerConsumer has started");
-        jmsTestConsumer.registerConsumer();
-        LOG.debug("registerConsumer has ended");
-    }
-
+    /*
+     * for synchronous handle queue message
+     * you need to uncomment {jmsTestConsumer.registerConsumer();}
+     * and remove JMSListener
+     */
     public void testMethodService(String message) {
         LOG.debug("testMethodService has started");
         jmsTestProducer.produceMessage(message);
+//        jmsTestConsumer.registerConsumer();
         LOG.debug("testMethodService has ended");
     }
 

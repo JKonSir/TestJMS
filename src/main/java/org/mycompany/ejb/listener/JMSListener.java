@@ -25,6 +25,12 @@ public class JMSListener implements MessageListener {
     public void onMessage(Message message) {
         LOG.debug("handle message has started");
         LOG.debug("message={}", message);
+
+        try {
+            Thread.sleep(10000L);
+        } catch (InterruptedException ex) {
+            LOG.error("error occurs during thread sleep in JMSListener.onMessage", ex);
+        }
         /*
          * handle message
          */

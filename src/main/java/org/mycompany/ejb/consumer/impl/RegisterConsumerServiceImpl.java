@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSConsumer;
 import javax.jms.JMSContext;
 import javax.jms.JMSRuntimeException;
 import javax.jms.Queue;
@@ -30,7 +31,9 @@ public class RegisterConsumerServiceImpl implements RegisterConsumerService {
     public void registerConsumer() {
         LOG.debug("registerConsumer has started");
         try {
-            jmsContext.createConsumer(queue);
+            JMSConsumer jmsConsumer = jmsContext.createConsumer(queue);
+            String message = jmsConsumer.receiveBody(String.class);
+            LOG.debug("registerConsumer: message={}", message);
         } catch (JMSRuntimeException ex) {
             LOG.error("registerConsumer has failed: ", ex);
         }
